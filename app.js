@@ -6,11 +6,11 @@ const morgan = require('morgan');
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL, () => {
+mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log('-------------------')
-  console.log('Banco de dados conectado');
+  console.log('Banco de dados conectado 🌎');
   console.log('-------------------')
-});
+}).catch((err) => console.log(err));
 
 const app = express();
 
