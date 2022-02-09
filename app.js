@@ -4,6 +4,9 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const pinRoute = require('./routes/pins');
+const userRoute = require('./routes/users');
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
@@ -20,7 +23,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan('combined'));
 
-// app.use('/api/v1/', router);
+app.use('/api/v1/users', userRoute);
+app.use('/api/v1/pins', pinRoute);
 
 app.listen(8800, () => {
   console.log('-------------------')
