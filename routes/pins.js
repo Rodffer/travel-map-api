@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const getAllPins = await Pin.find();
+    const getAllPins = await Pin.find().populate('user', 'userName');
 
     return res.status(200).json(getAllPins);
     
