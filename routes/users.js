@@ -62,16 +62,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// get all user
-
-router.get('/', async (req, res) => {
-  try {
-    const getAllUsers = await User.find();
-
-    return res.status(200).json(getAllUsers);
-  } catch (error) {
-    return res.status(500).json({ error: error});
-  }
-});
-
 module.exports = router;
