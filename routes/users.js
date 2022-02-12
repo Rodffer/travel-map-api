@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 // create user
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const { userName, email } = req.body;
 
@@ -39,6 +39,28 @@ router.post('/', async (req, res) => {
 });
 
 // login
+
+router.post('/login', async (req, res) => {
+  try { 
+    
+    const { userName } = req.body;
+
+    const user = await User.findOne({ userName });
+
+    !user && res.status(401).json({ message: 'Usuário e ou senha incorreta'});
+
+    const { password } = req.body;
+
+    const validPass = await bcrypt.compare(password, user.password);
+
+    !validPass && res.status(401).json({ message: 'Usuário e ou senha incorreta'});
+
+    res.status(200).json({ _id: user._id, userName: user.userName});
+   
+  } catch (error) {
+    return res.status(500).json({ error: error});
+  }
+});
 
 // get all user
 
